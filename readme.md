@@ -1,6 +1,6 @@
-# CrowPanel Image TTS Cards — ESP32-S3 Firmware for Voicing Photo Cards via GRC HxTTS
+# CrowPanel Image TTS Cards — ESP32-S3 Firmware for Voicing Photo Cards via GRC tinyTTS
 
-**Summary.** Firmware for the ELECROW CrowPanel Advance 5.0 (ESP32-S3, 800×480) with an LVGL UI that displays photo cards and plays the text associated with each card through the GRC HxTTS module over UART. The app uses a Image screen: you can listen to the card’s story (play) and switch to the next card (change). The card list is looped.
+**Summary.** Firmware for the ELECROW CrowPanel Advance 5.0 (ESP32-S3, 800×480) with an LVGL UI that displays photo cards and plays the text associated with each card through the GRC tinyTTS module over UART. The app uses a Image screen: you can listen to the card’s story (play) and switch to the next card (change). The card list is looped.
 
 Two **card scenarios** are provided: **album** and **traveling**. The scenario is selected at build time or when flashing prebuilt images (see below).
 
@@ -11,7 +11,7 @@ Two **card scenarios** are provided: **album** and **traveling**. The scenario i
 - `firmware/` — flashing utility and prebuilt binaries.
   - `binaries_album/` — firmware images with the **album** scenario (ready-made `spiffs.bin` containing “album” cards).  
   - `binaries_travel/` — firmware images with the **traveling** scenario (ready-made `spiffs.bin` containing “traveling” cards).  
-- `main/` — firmware sources (ESP-IDF): LVGL UI, UART manager, HxTTS integration, asset/image subsystem.
+- `main/` — firmware sources (ESP-IDF): LVGL UI, UART manager, tinyTTS integration, asset/image subsystem.
 - `components/ui/` — SquareLine Studio project and exported LVGL resources. **Scenario configuration** via `scenario_build.h`.
 - `spiffs_root/` — asset sources:
   - `spiffs_root/assets_alb/` — RAW frames (binary image representations) and descriptive texts for the **album** scenario;
@@ -25,7 +25,7 @@ Two **card scenarios** are provided: **album** and **traveling**. The scenario i
 - **SPIFFS → PSRAM → LVGL pipeline:** RAW frames are stored in the SPIFFS flash FS. Before display, a frame is read **entirely** into a **PSRAM** buffer and rendered via the LVGL/driver stack.
 - **Image ↔ text binding:** each card has a descriptive text for speech playback.
 - **Embedded device focus:** Designed for ELECROW CrowPanel Advance 5.0-HMI. For detailed device hardware information, see [Device Hardware Documentation](https://www.elecrow.com/pub/wiki/CrowPanel_Advance_5.0-HMI_ESP32_AI_Display.html).  
-- **HxTTS control:** Load text into the buffer, trigger playback, monitor playback status, and adjust volume using the GRC HxTTS module. For details, see [HxTTS repository](https://github.com/Grovety/HxTTS).  
+- **tinyTTS control:** Load text into the buffer, trigger playback, monitor playback status, and adjust volume using the GRC tinyTTS module. For details, see [HxTTS repository](https://github.com/Grovety/HxTTS).  
 - **Persistent settings:** Saved to NVS / file for convenient reuse.  
 
 ---
@@ -62,12 +62,12 @@ When flashing, point the flasher to the corresponding folder (see “Flashing”
 
 # Usage 
 
-> **IMPORTANT:** Order of actions matters — first connect the CrowPanel to your computer via USB/Serial, then flash the board, then connect the GRC HxTTS module.
+> **IMPORTANT:** Order of actions matters — first connect the CrowPanel to your computer via USB/Serial, then flash the board, then connect the GRC tinyTTS module.
 
 1. **Hardware setup (initial)**  
    - Set the function-select switch on the CrowPanel to **WM**(0,1) (UART1-OUT mode).  
    - Connect the CrowPanel to the PC via USB/Serial.  
-   - **Do NOT connect the GRC HxTTS module yet.** The HxTTS module must be connected only after the panel firmware has been flashed (see note below).  
+   - **Do NOT connect the GRC tinyTTS module yet.** The tinyTTS module must be connected only after the panel firmware has been flashed (see note below).  
 
 2. **Flashing the board**
 
@@ -92,13 +92,13 @@ Required files inside the selected folder:
 - `spiffs.bin` @ `0x110000`
 
 3. **Hardware setup (post-flash)**  
-   - After flashing completes and the device has rebooted, connect the GRC HxTTS module (UART0) and CrowPanel (UART1-OUT) using a 4-pin adapter.  
-   - Connect the audio output (3.5 mm mini jack) from the HxTTS module to the speaker/headphones.
+   - After flashing completes and the device has rebooted, connect the GRC tinyTTS module (UART0) and CrowPanel (UART1-OUT) using a 4-pin adapter.  
+   - Connect the audio output (3.5 mm mini jack) from the tinyTTS module to the speaker/headphones.
 
 4. **Screen Logic & Controls**  
 
 - `ui_img` — the current card image from SPIFFS.
-- `play` — speak the card’s text via HxTTS.
+- `play` — speak the card’s text via tinyTTS.
 - `change` — go to the next card (looped list).
 - Service statuses/errors — visible in the serial log.
 
@@ -116,7 +116,7 @@ Required files inside the selected folder:
 - UI sources: `components/ui/` (SquareLine project + generated LVGL files).
 - **Image screen:**
   - `ui_img` widget — displays the current photo card from SPIFFS;
-  - **`play`** button — sends the card’s descriptive text to HxTTS and starts playback;
+  - **`play`** button — sends the card’s descriptive text to tinyTTS and starts playback;
   - **`change`** button (arrow) — shows the **next** card. After the last card the list wraps to the first (looped).
 ![](images/ui_image.png)
 
@@ -126,4 +126,4 @@ Required files inside the selected folder:
 
 - **ESP-IDF Components:** all dependencies are declared in `idf_component.yml` and fetched automatically by the ESP-IDF component manager.
 - **LVGL 8.4:** UI rendering (exported from SquareLine Studio).
-- **GRC HxTTS integration:** Serial/UART transport and the module’s register-level protocol.
+- **GRC tinyTTS integration:** Serial/UART transport and the module’s register-level protocol.
