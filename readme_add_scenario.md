@@ -114,17 +114,20 @@ Minimal 3-text scaffold (you may define more or fewer; `builtin_text_count()` is
 #include <stdatomic.h>
 
 static const char* kThirdTexts[] = {
-    "I left the lamp on so the room could remember me.\n"
-    "Dust danced like tiny comets in a private orbit.\n"
-    "Nothing moved, yet the silence kept arriving late.",
+    // CASE_TXT_01
+    "Row 1.\n"
+    "Row 2.\n"
+    "Row 3.",
 
-    "Stairs creaked not from weight but from recollection.\n"
-    "The hallway smelled of postcards never sent.\n"
-    "Even the mirror practiced not recognizing me.",
+    // CASE_TXT_02
+    "Row 1.\n"
+    "Row 2.\n"
+    "Row 3.",
 
-    "A teacup cooled into a small, moonless lake.\n"
-    "Steam wrote my name, then crossed it out politely.\n"
-    "Some doors prefer to stay unlocked in theory."
+    // CASE_TXT_03
+    "Row 1.\n"
+    "Row 2.\n"
+    "Row 3."
 };
 
 static _Atomic(builtin_text_case_t) s_current_case = CASE_TXT_01;
