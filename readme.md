@@ -74,9 +74,10 @@ When flashing, point the flasher to the corresponding folder (see “Flashing”
 #### Build from sources
 1. Install ESP-IDF framework v5.4.  
 2. Clone the repository.
-3. Select a scenario in `components/ui/scenario_build.h`.
-4. Dependencies are managed via the ESP-IDF component manager (`idf_component.yml`).  
-5. Build and flash:
+3. ```git lfs install```
+4. Select a scenario in `components/ui/scenario_build.h`.
+5. Dependencies are managed via the ESP-IDF component manager (`idf_component.yml`).  
+6. Build and flash:
 ```bash
 idf.py build
 idf.py -p PORT flash
