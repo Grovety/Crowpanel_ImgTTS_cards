@@ -72,9 +72,9 @@ When flashing, point the flasher to the corresponding folder (see “Flashing”
 2. **Flashing the board**
 
 #### Build from sources
-1. Install ESP-IDF framework v5.4.  
-2. Clone the repository.
-3. ```git lfs install```
+1. Install ESP-IDF framework v5.4.
+2. ```git lfs install```  
+3. Clone the repository.
 4. Select a scenario in `components/ui/scenario_build.h`.
 5. Dependencies are managed via the ESP-IDF component manager (`idf_component.yml`).  
 6. Build and flash:
