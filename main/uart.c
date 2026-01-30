@@ -48,7 +48,7 @@ int uart_read(void* data, uint32_t bytes, uint32_t timeout)
 
 int uart_init()
 {
-    esp_err_t r = uart_manager_install(UART_NUM, UART_RX_PIN, UART_TX_PIN, 921600, NULL);
+    esp_err_t r = uart_manager_install(UART_NUM, UART_RX_PIN, UART_TX_PIN, 115200, NULL);
     return (r == ESP_OK) ? ESP_OK : ESP_FAIL;
 }
 

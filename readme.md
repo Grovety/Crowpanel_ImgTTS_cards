@@ -33,7 +33,7 @@ Two **card scenarios** are provided: **album** and **traveling**. The scenario i
 ## Scenario Selection (album vs traveling)
 
 ### Option A — **at build time** from sources
-The file `components/ui/scenario_build.h` must define **exactly one** scenario:
+The file `components/ui/include/scenario_build.h` must define **exactly one** scenario:
 ```c
 // components/ui/scenario_build.h
 // Set exactly one flag to 1, the other to 0
